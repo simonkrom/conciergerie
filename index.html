@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conciergerie Médicale</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Conciergerie Médicale</h1>
+            <nav>
+                <ul>
+                    <li><a href="#" class="nav-link active" data-tab="enregistrement">Enregistrement Patient</a></li>
+                    <li><a href="#" class="nav-link" data-tab="laboratoire">Laboratoire de Proximité</a></li>
+                    <li><a href="#" class="nav-link" data-tab="pharmacie">Pharmacie de Proximité</a></li>
+                    <li><a href="#" class="nav-link" data-tab="rendezvous">Rendez-vous Médical</a></li>
+                    <li><a href="#" class="nav-link" data-tab="residence">Résidence Médicale</a></li>
+                    <li><a href="#" class="nav-link" data-tab="assistance">Assistance Médicale</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Onglet Enregistrement Patient -->
+        <section id="enregistrement" class="tab-content active">
+            <h2>Enregistrement Patient</h2>
+            <form id="patient-form">
+                <div class="form-group">
+                    <label for="type-patient">Type de patient *</label>
+                    <select id="type-patient" required>
+                        <option value="">Sélectionnez...</option>
+                        <option value="hospitalise">Patient Hospitalisé</option>
+                        <option value="externe">Patient Externe</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="nom">Nom *</label>
+                    <input type="text" id="nom" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="prenom">Prénom *</label>
+                    <input type="text" id="prenom" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="telephone">Numéro de téléphone *</label>
+                    <input type="tel" id="telephone" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="ville">Ville *</label>
+                    <select id="ville" required>
+                        <option value="">Sélectionnez votre ville</option>
+                        <!-- Villes du Gabon seront chargées dynamiquement -->
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="adresse">Adresse complète</label>
+                    <textarea id="adresse"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="medecin">Médecin traitant</label>
+                    <input type="text" id="medecin">
+                </div>
+                
+                <div class="form-group">
+                    <label>Service souhaité *</label>
+                    <div class="checkbox-group">
+                        <label><input type="checkbox" name="service" value="laboratoire"> Laboratoire de proximité</label>
+                        <label><input type="checkbox" name="service" value="pharmacie"> Pharmacie de proximité</label>
+                        <label><input type="checkbox" name="service" value="rendezvous"> Rendez-vous médical</label>
+                        <label><input type="checkbox" name="service" value="residence"> Résidence médicale</label>
+                        <label><input type="checkbox" name="service" value="assistance"> Assistance médicale</label>
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn-primary">Enregistrer</button>
+            </form>
+        </section>
+
+        <!-- Onglet Laboratoire de Proximité -->
+        <section id="laboratoire" class="tab-content">
+            <h2>Laboratoire de Proximité</h2>
+            <div class="examens-container">
+                <h3>Sélectionnez vos examens</h3>
+                <div id="liste-examens" class="examens-list">
+                    <!-- Liste des examens chargée dynamiquement -->
+                </div>
+                <div class="examens-summary">
+                    <h4>Examens sélectionnés</h4>
+                    <ul id="examens-selectionnes"></ul>
+                    <div class="total-section">
+                        <p>Total examens: <span id="total-examens">0</span> CFA</p>
+                        <p>Frais de service: 5000 CFA</p>
+                        <p><strong>Total: <span id="total-general">5000</span> CFA</strong></p>
+                    </div>
+                    <button id="btn-paiement" class="btn-primary">Procéder au paiement</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Onglet Pharmacie de Proximité -->
+        <section id="pharmacie" class="tab-content">
+            <h2>Pharmacie de Proximité</h2>
+            <p>Fonctionnalité en cours de développement...</p>
+        </section>
+
+        <!-- Onglet Rendez-vous Médical -->
+        <section id="rendezvous" class="tab-content">
+            <h2>Rendez-vous Médical</h2>
+            <form id="rendezvous-form">
+                <div class="form-group">
+                    <label for="type-rdv">Type de rendez-vous *</label>
+                    <select id="type-rdv" required>
+                        <option value="">Sélectionnez...</option>
+                        <option value="consultation">Consultation spécialisée</option>
+                        <option value="clinique">Acte clinique</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="specialite">Spécialité *</label>
+                    <select id="specialite" required>
+                        <option value="">Sélectionnez une spécialité</option>
+                        <option value="cardiologie">Cardiologie</option>
+                        <option value="dermatologie">Dermatologie</option>
+                        <option value="gynecologie">Gynécologie</option>
+                        <option value="pediatrie">Pédiatrie</option>
+                        <option value="ophtalmologie">Ophtalmologie</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="date-rdv">Date souhaitée *</label>
+                    <input type="date" id="date-rdv" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="heure-rdv">Heure souhaitée *</label>
+                    <input type="time" id="heure-rdv" required>
+                </div>
+                
+                <button type="submit" class="btn-primary">Prendre rendez-vous</button>
+            </form>
+        </section>
+
+        <!-- Onglet Résidence Médicale -->
+        <section id="residence" class="tab-content">
+            <h2>Résidence Médicale</h2>
+            <p>Fonctionnalité en cours de développement...</p>
+        </section>
+
+        <!-- Onglet Assistance Médicale -->
+        <section id="assistance" class="tab-content">
+            <h2>Assistance Médicale</h2>
+            <p>Fonctionnalité en cours de développement...</p>
+        </section>
+
+        <!-- Modal Paiement -->
+        <div id="modal-paiement" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>Paiement</h2>
+                <div id="paiement-etapes">
+                    <!-- Étape 1: Choix assurance -->
+                    <div id="etape-assurance" class="etape-paiement active">
+                        <h3>Mode de paiement</h3>
+                        <div class="form-group">
+                            <label>
+                                <input type="radio" name="mode-paiement" value="sans-assurance" checked>
+                                Sans assurance
+                            </label>
+                            <label>
+                                <input type="radio" name="mode-paiement" value="avec-assurance">
+                                Avec assurance
+                            </label>
+                        </div>
+                        
+                        <div id="choix-assurance" class="hidden">
+                            <h4>Choisissez votre assurance</h4>
+                            <div id="liste-assurances" class="assurances-list">
+                                <!-- Liste des assurances chargée dynamiquement -->
+                            </div>
+                        </div>
+                        
+                        <button id="btn-etape-suivante" class="btn-primary">Suivant</button>
+                    </div>
+                    
+                    <!-- Étape 2: Détails assurance -->
+                    <div id="etape-details-assurance" class="etape-paiement">
+                        <h3>Détails de votre assurance</h3>
+                        <div id="details-assurance">
+                            <!-- Détails spécifiques à l'assurance sélectionnée -->
+                        </div>
+                        <button id="btn-etape-precedente" class="btn-secondary">Précédent</button>
+                        <button id="btn-etape-ordonnance" class="btn-primary">Suivant</button>
+                    </div>
+                    
+                    <!-- Étape 3: Ordonnance -->
+                    <div id="etape-ordonnance" class="etape-paiement">
+                        <h3>Téléchargement de l'ordonnance</h3>
+                        <div class="form-group">
+                            <label for="scan-ordonnance">Scanner ou télécharger votre ordonnance</label>
+                            <input type="file" id="scan-ordonnance" accept="image/*,.pdf">
+                        </div>
+                        <button id="btn-etape-precedente2" class="btn-secondary">Précédent</button>
+                        <button id="btn-payer" class="btn-primary">Payer maintenant</button>
+                    </div>
+                    
+                    <!-- Étape 4: Paiement Mobile Money -->
+                    <div id="etape-mobile-money" class="etape-paiement">
+                        <h3>Paiement par Mobile Money</h3>
+                        <div class="form-group">
+                            <label for="operateur">Opérateur *</label>
+                            <select id="operateur" required>
+                                <option value="">Sélectionnez votre opérateur</option>
+                                <option value="airtel">Airtel Money</option>
+                                <option value="moov">Moov Money</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="numero-mobile">Numéro de téléphone *</label>
+                            <input type="tel" id="numero-mobile" required>
+                        </div>
+                        <div class="form-group">
+                            <p>Montant à payer: <strong id="montant-a-payer">0</strong> CFA</p>
+                        </div>
+                        <button id="btn-confirmer-paiement" class="btn-primary">Confirmer le paiement</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Facture -->
+        <div id="modal-facture" class="modal">
+            <div class="modal-content facture">
+                <h2>Facture</h2>
+                <div class="facture-content">
+                    <div class="facture-header">
+                        <div class="patient-info">
+                            <p><strong>Nom:</strong> <span id="facture-nom"></span></p>
+                            <p><strong>Prénom:</strong> <span id="facture-prenom"></span></p>
+                            <p><strong>Adresse:</strong> <span id="facture-adresse"></span></p>
+                        </div>
+                        <div class="facture-date">
+                            <p><strong>Date:</strong> <span id="facture-date"></span></p>
+                            <p><strong>Référence:</strong> <span id="facture-reference"></span></p>
+                        </div>
+                    </div>
+                    
+                    <div class="facture-details">
+                        <h3>Examens demandés</h3>
+                        <ul id="facture-examens"></ul>
+                    </div>
+                    
+                    <div class="facture-total">
+                        <p><strong>Total: <span id="facture-total"></span> CFA</strong></p>
+                    </div>
+                    
+                    <div class="facture-qrcode">
+                        <div id="qrcode-container"></div>
+                        <div id="statut-commande" class="blinking">COMMANDE EN COURS</div>
+                    </div>
+                </div>
+                <button id="btn-fermer-facture" class="btn-primary">Fermer</button>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 Conciergerie Médicale - Tous droits réservés</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
